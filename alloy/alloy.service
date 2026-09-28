@@ -1,0 +1,15 @@
+[Unit]
+Description=Grafana Alloy
+After=network-online.target loki.service
+Wants=network-online.target
+
+[Service]
+User=alloy
+Group=alloy
+SupplementaryGroups=systemd-journal
+Type=simple
+ExecStart=/usr/local/bin/alloy run --storage.path=/var/lib/alloy /etc/alloy/config.alloy
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

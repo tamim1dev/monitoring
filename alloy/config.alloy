@@ -1,0 +1,10 @@
+loki.source.journal "journal" {
+  forward_to = [loki.write.local.receiver]
+  labels     = { job = "systemd-journal", host = "arch" }
+}
+
+loki.write "local" {
+  endpoint {
+    url = "http://localhost:3100/loki/api/v1/push"
+  }
+}
