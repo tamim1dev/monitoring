@@ -1,0 +1,19 @@
+[Unit]
+Description=Grafana
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=grafana
+Group=grafana
+Type=simple
+WorkingDirectory=/opt/grafana
+ExecStart=/opt/grafana/bin/grafana server \
+  --homepath=/opt/grafana \
+  --config=/opt/grafana/conf/defaults.ini \
+  cfg:default.paths.data=/var/lib/grafana \
+  cfg:default.paths.logs=/var/log/grafana
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
